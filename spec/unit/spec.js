@@ -276,5 +276,47 @@ JSpec.describe('Hoptoad', function() {
 
       xml.should.match(matcher);
     });
+
+    it('should include request params provided', function() {
+      var matcher = new RegExp('<request>.*<params><var key="&#34;first">value</var><var key="second">&#60;whatever&#62;</var></params>.*</request>');
+      var xml     = Hoptoad.generateXML({
+        url        : '/',
+        component  : 'Home',
+        params     : {
+          '"first' : 'value',
+          second   : '<whatever>'
+        }
+      });
+
+      xml.should.match(matcher);
+    });
+
+    it('should include session variables provided', function() {
+      var matcher = new RegExp('<request>.*<session><var key="&#34;first">value</var><var key="second">&#60;whatever&#62;</var></session>.*</request>');
+      var xml     = Hoptoad.generateXML({
+        url        : '/',
+        component  : 'Home',
+        session    : {
+          '"first' : 'value',
+          second   : '<whatever>'
+        }
+      });
+
+      xml.should.match(matcher);
+    });
+
+    it('should include cgi-data variables provided', function() {
+      var matcher = new RegExp('<request>.*<cgi-data><var key="&#34;first">value</var><var key="second">&#60;whatever&#62;</var></cgi-data>.*</request>');
+      var xml     = Hoptoad.generateXML({
+        url        : '/',
+        component  : 'Home',
+        'cgi-data' : {
+          '"first' : 'value',
+          second   : '<whatever>'
+        }
+      });
+
+      xml.should.match(matcher);
+    });
   });
 });
