@@ -130,10 +130,11 @@ JSpec.describe('Hoptoad', function() {
     it('should generate line XML elements for each backtrace line', function() {
       var backtraceXML = Hoptoad.generateBacktrace({
         stack : "  at Timeout.callback (file.js:10:1)\n" +
-                "  at fakeFunction (file2.js:100:1)"
+                "  at fakeFunction (file2.js:100:1)\n" +
+                "at /Users/my/path/file.js:95:19"
       });
 
-      backtraceXML.should.eql(['<line method="Timeout.callback" file="file.js" number="10" />', '<line method="fakeFunction" file="file2.js" number="100" />']);
+      backtraceXML.should.eql(['<line method="Timeout.callback" file="file.js" number="10" />', '<line method="fakeFunction" file="file2.js" number="100" />', '<line method="" file="/Users/my/path/file.js" number="95" />']);
     });
 
     it('should escape method and file attributes', function() {
