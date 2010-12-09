@@ -30,8 +30,7 @@ JSpec.describe('Hoptoad', function() {
 
       JSpec.context           = undefined;
       Hoptoad.ENVIRONMENT     = undefined;
-      process.env['RACK_ENV'] = undefined;
-      process.env['NODE_ENV'] = undefined;
+      process.env = {};
 
       destub(HTTP);
       destub(Hoptoad);
